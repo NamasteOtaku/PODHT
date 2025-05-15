@@ -41,9 +41,10 @@ export default function PromptBuilder() {
     setError(null);
     setLoading(true);
     try {
-      const res = await axios.post(API_URL, {
-        prompt: `Idea: ${idea}\nFeatures: ${selectedFeatures.join(', ')}`,
-      });
+      const res = await axios.post('/api/optimizePrompt', {
+  ideaText: idea,
+  selectedFeatures,
+});
       setPrompt(res.data.optimizedPrompt);
     } catch (e: any) {
       console.error(e);
