@@ -1,6 +1,7 @@
 // api/optimizePrompt.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { optimizePrompt } from '../src/services/huggingface';
+- import { optimizePrompt } from '../src/services/huggingface';
++ import { optimizePrompt } from './services/huggingface';
 
 export default async function handler(
   req: VercelRequest,
