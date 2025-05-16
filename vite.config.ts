@@ -2,7 +2,6 @@
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import vercel from 'vite-plugin-vercel';
-import { getEntriesFromFs } from 'vite-plugin-vercel/utils';
 
 export default defineConfig({
   plugins: [
