@@ -5,28 +5,23 @@ import vercel from 'vite-plugin-vercel';
 
 export default defineConfig({
   plugins: [
+    // Provide Node globals in browser context
     nodePolyfills({
       globals: { process: true, Buffer: true, global: true },
       exclude: ['fs', 'path'],
     }),
-    vercel({
-      // Tell the plugin to also bundle functions in src/api
-      entries: [
-        // Async IIFE so we can await getEntriesFromFs
-        ...(await getEntriesFromFs('src/api', {
-          // Files under src/api → served at /api/<name>
-          destination: 'api',
-        })),
-      ],
-    }),
+    // Bundle everything under /api as serverless functions
+    vercel(),
   ],
   define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    // Ensure any code referencing process.env.NODE_ENV still works
+    'process.env.NODE_ENV': JSON.stringify(
+      process.env.NODE_ENV || 'development'
+    ),
     'process.browser': 'true',
     global: 'window',
   },
   server: {
-    port: 5173,
+    port: 5173,  // Matches your Axios base URL
   },
 });
-
